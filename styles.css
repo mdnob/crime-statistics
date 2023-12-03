@@ -1,0 +1,52 @@
+body {
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #3498db; 
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #3498db;
+    padding: 10px;
+    text-align: center;
+    z-index: 1;
+}
+
+button {
+    background-color: #3498db; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9; 
+}
+
+/* Set a higher z-index for the chart container to ensure it's above the footer */
+#chart-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Set the size of the chart container */
+#chart-container {
+    max-width: 600px; /* Adjust the max-width as needed */
+    margin: 0 auto; /* Center the chart container on the page */
+}
+
+/* Set a higher z-index for the canvas to ensure it's above the footer */
+#myChart {
+    width: 100%; /* Make the canvas fill the chart container */
+}

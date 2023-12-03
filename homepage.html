@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
+    <title>L.A. Crime Data Visualizer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #3498db; 
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        left-section {
+            width: 45%; /* Adjust the width as needed */
+        }
+
+        right-section {
+            width: 45%; /* Adjust the width as needed */
+        }
+
+        footer {
+            background-color: #3498db; 
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #007BFF; 
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>L.A. Crime Data Visualizer</h1>
+    </header>
+
+    <section>
+        <left-section>
+            <!-- Placeholder for an image -->
+            <img src="graphImage.jpeg" alt="Graph image, types of graph you might expect to see in this application" 
+            style="max-width: 100%; height: auto;">
+        </left-section>
+
+        <right-section>
+            <h2>Created by: Matthew Nobleza, Jack Goldstein, and Neil Shah</h2>
+            <p>
+                This website is designed to visualize and analyze crime data in Los Angeles. Explore different queries and gain insights into crime patterns and trends. The available trend queries include:
+            </p>
+            <ol>
+                <li><strong>Crime Normal Curve:</strong> Visualizes the distribution of crime incidents over time, showing a normal curve.</li>
+                <li><strong>Crime vs Unemployment:</strong> Examines the correlation between crime rates and unemployment rates in the region.</li>
+                <li><strong>Crime vs Inflation:</strong> Analyzes the relationship between crime rates and inflation levels.</li>
+                <li><strong>Per-100k Crime Rates:</strong> Displays crime rates normalized per 100,000 population, providing a standardized comparison.</li>
+                <li><strong>Crime Rates on Popular Holidays:</strong> Explores variations in crime rates during popular holidays and special occasions.</li>
+            </ol>
+        </right-section>
+    </section>
+
+    <footer>
+        <button onclick="goToQ1()">Normal Curve</button>
+        <button onclick="goToQ2()">Unemployment</button>
+        <button onclick="goToQ3()">Inflation Rate</button>
+        <button onclick="goToQ4()">Per-100k Rates</button>
+        <button onclick="goToQ5()">Holiday Crime</button>
+    </footer>
+
+    <script>
+        function goToQ1() {
+            window.location.href = "query1.html";
+        }
+        function goToQ2() {
+            window.location.href = "query2.html";
+        }
+        function goToQ3() {
+            window.location.href = "query3.html";
+        }
+        function goToQ4() {
+            window.location.href = "query4.html";
+        }
+        function goToQ5() {
+            window.location.href = "query5.html";
+        }
+    </script>
+
+</body>
+</html>
