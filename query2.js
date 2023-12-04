@@ -167,7 +167,7 @@ const crimeTypeToIndexMap = {
 };
 
 function getColorByIndex(index) {
-  const colors = ['blue', 'red', 'green', 'purple', 'orange', 'yellow', 'brown', 'cyan'];
+  const colors = ['blue', 'red', 'green', 'purple', 'orange', 'yellow', 'brown', 'cyan', 'black', 'white'];
   return colors[index % colors.length];
 }
 
