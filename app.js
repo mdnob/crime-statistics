@@ -14,7 +14,7 @@ app.get('/query', async (req, res) => {
       if (type === '1') 
       {
         result = await query.query1();
-      } 
+      }
       else if (type === '2') 
       {
         result = await query.query2();
@@ -22,6 +22,10 @@ app.get('/query', async (req, res) => {
       else if (type === '3') 
       {
         result = await query.query3();
+      }
+      else if (type === '3.1')
+      {
+        result = await query.query3p2();
       }
       else if (type === '4') 
       {
