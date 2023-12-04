@@ -5,11 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Crime Statistics</title>
+    <link rel="icon" href="data:,">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #updateButton {
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>L.A. Crime Normal Distribution Curve</h1>
+        <h1>L.A. Crime Victim Age Normal Distribution Curve</h1>
+        <p>Select year(s) to show corresponding normal curve.</p>
+        <script src="query1.js"></script>
     </header>
+
+    <div id="chart-container">
+        <div id="checkbox"></div>
+        <button id="updateButton">Update</button>
+        <canvas id="myChart" width="200" height="100"></canvas>
+        <div id="graph-sentence">
+            <p>--------1.5σ-----------------1.25σ
+            -------------------Median----------------1.25σ
+            -----------------1.5σ   
+            </p>
+        </div>
+    </div>
 
     <footer>
         <button onclick="goToHomepage()">Back To Homepage</button>
