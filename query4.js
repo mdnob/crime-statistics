@@ -109,7 +109,16 @@ function renderChart(data) {
           ]
         },
         options: {
-          maintainAspectRatio: true
+          maintainAspectRatio: true,
+          scales: {
+            y: {
+              title: {
+                display: true,
+                text: 'Crime Rate (Per-100k)'
+              }
+            }
+
+          }
         }
       });
     } else {
