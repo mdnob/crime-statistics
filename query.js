@@ -7,18 +7,22 @@ async function query1() {
     connection = await oracledb.getConnection(dbConfig);
     const sql = 
     `
-    (select year ,(floor(avg(age))-floor(STDDEV(age)*1.25)) as "-1.25σ" , (floor(avg(age))-floor(STDDEV(age))) as "-1σ" ,
-    floor(avg(age)) mean, (floor(avg(age))+floor(STDDEV(age))) as "1σ", (floor(avg(age))+floor(STDDEV(age)*1.25)) as "1.25σ"
-    from victim,crime where
-    victim.crimeid = crime.crimeid group by year)
-    union (
-    select year,round(((1/(stddev(age)*sqrt(2*3.14159)))*power(2.718281,-power(((floor(avg(age))-floor(STDDEV(age)*1.25))-avg(age)),2)/power((2*stddev(age)),2)))-0.0005,3) as "y1" , 
-    round(((1/(stddev(age)*sqrt(2*3.14159)))*power(2.718281,-power(((floor(avg(age))-floor(STDDEV(age)*1))-avg(age)),2)/power((2*stddev(age)),2)))-0.0005,3) as "y2" ,
-    round((1/(stddev(age)*sqrt(2*3.14159)))*power(2.718281,-power(((floor(avg(age)))-avg(age)),2)/power((2*stddev(age)),2)),3) as "y3",
-    round(((1/(stddev(age)*sqrt(2*3.14159)))*power(2.718281,-power(((floor(avg(age))+floor(STDDEV(age)*1))-avg(age)),2)/power((2*stddev(age)),2)))-0.0005,3) as "y4",
-    round(((1/(stddev(age)*sqrt(2*3.14159)))*power(2.718281,-power(((floor(avg(age))+floor(STDDEV(age)*1.25))-avg(age)),2)/power((2*stddev(age)),2)))-0.0005,3) as "y5"
-    from victim,crime
-    where victim.crimeid = crime.crimeid group by year)
+    SELECT 
+    year,(floor(AVG(age)) - floor(STDDEV(age) * 1.25)) as "-1.25σ",(floor(AVG(age)) - floor(STDDEV(age))) as "-1σ",
+    floor(AVG(age)) as "mean",(floor(AVG(age)) + floor(STDDEV(age))) as "1σ",(floor(AVG(age)) + floor(STDDEV(age) * 1.25)) as "1.25σ",
+    ROUND(((1 / (STDDEV(age) * SQRT(2 * 3.14159))) * POWER(2.718281, -POWER((floor(AVG(age)) - floor(STDDEV(age) * 1.25)) - AVG(age), 2) / POWER((2 * STDDEV(age)), 2))) - 0.0005, 3
+    ) as "y1",ROUND(((1 / (STDDEV(age) * SQRT(2 * 3.14159))) * POWER(2.718281, -POWER((floor(AVG(age)) - floor(STDDEV(age) * 1)) - AVG(age), 2) / POWER((2 * STDDEV(age)), 2))) - 0.0005, 3
+    ) as "y2",ROUND((1 / (STDDEV(age) * SQRT(2 * 3.14159))) * POWER(2.718281, -POWER((floor(AVG(age))) - AVG(age), 2) / POWER((2 * STDDEV(age)), 2)), 3
+    ) as "y3",ROUND(((1 / (STDDEV(age) * SQRT(2 * 3.14159))) * POWER(2.718281, -POWER((floor(AVG(age)) + floor(STDDEV(age) * 1)) - AVG(age), 2) / POWER((2 * STDDEV(age)), 2))) - 0.0005, 3
+    ) as "y4",ROUND(((1 / (STDDEV(age) * SQRT(2 * 3.14159))) * POWER(2.718281, -POWER((floor(AVG(age)) + floor(STDDEV(age) * 1.25)) - AVG(age), 2) / POWER((2 * STDDEV(age)), 2))) - 0.0005, 3
+    ) as "y5" FROM 
+    victim
+    JOIN 
+    crime ON victim.crimeid = crime.crimeid 
+    GROUP BY 
+    year
+    ORDER BY 
+    year asc
     `;
     const result = await connection.execute(sql);
     return result;
@@ -81,7 +85,8 @@ async function query3() {
   try {
     connection = await oracledb.getConnection(dbConfig);
     const sql = 
-    `select round(((y11-y10)/y10)*100,2) as "2011",round(((y12-y11)/y11)*100,2) as "2012",
+    `
+    select round(((y11-y10)/y10)*100,2) as "2011",round(((y12-y11)/y11)*100,2) as "2012",
     round(((y13-y12)/y12)*100,2) as "2013",round(((y14-y13)/y13)*100,2) as "2014",round(((y15-y14)/y14)*100,2) as "2015",
     round(((y16-y15)/y15)*100,2) as "2016",round(((y17-y16)/y16)*100,2) as "2017", round(((y18-y17)/y17)*100,2) as "2018",
     round(((y19-y18)/y18)*100,2) as "2019",round(((y20-y19)/y19)*100,2) as "2020",round(((y21-y20)/y20)*100,2) as "2021",
@@ -111,7 +116,47 @@ async function query3() {
     (select year,round(avg(cpi),2) as y21 from inflation  group by year 
     having year = '2021'),
     (select year,round(avg(cpi),2) as y22 from inflation  group by year 
-    having year = '2022')`;
+    having year = '2022')
+    `;
+    const result = await connection.execute(sql);
+    return result;
+  } catch (error) {
+    console.error('Error in query 3:', error);
+    throw error;
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (error) {
+        console.error('Error closing database connection:', error);
+      }
+    }
+  }
+}
+
+async function query3p2() {
+  let connection;
+  try {
+    connection = await oracledb.getConnection(dbConfig);
+    const sql = 
+    `
+    select CrmYear as Year, THEFT,ASLT,KDNP,HOM,ROB,BURG from 
+(select year CrmYear, count(*) TOTAL from crime group by crime.year),
+(select year TheftYear, count(*) THEFT from crime where crime.crimetype like '%THEFT%' group by year),
+(select year AsltYear, count(*) ASLT from crime where crime.crimetype like '%ASSAULT%' group by year),
+(select year KdnpYear, count(*) KDNP from crime where crime.crimetype like '%KIDNAPPING%' group by year),
+(select year HomYear, count(*) HOM from crime where crime.crimetype like '%HOMICIDE%' group by year),
+(select year RobYear, count(*) ROB from crime where crime.crimetype like '%ROBBERY%' group by year),
+(select year BurgYear, count(*) BURG from crime where crime.crimetype like '%BURGLARY%' group by year)
+where CrmYear = TheftYear
+and AsltYear = TheftYear
+and KdnpYear = AsltYear
+and HomYear = KdnpYear
+and Robyear = HomYear
+and BurgYear = RobYear
+order by CrmYear asc
+fetch first 13 rows only
+    `;
     const result = await connection.execute(sql);
     return result;
   } catch (error) {
@@ -208,6 +253,7 @@ module.exports = {
     query1,
     query2,
     query3,
+    query3p2,
     query4,
     query5,
 };
