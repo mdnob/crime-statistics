@@ -45,7 +45,7 @@ async function query2() {
   try {
     connection = await oracledb.getConnection(dbConfig);
     const sql = 
-    `SELECT A.Year, Unemployment, round(THEFT*100/TotalCrime,2) AS Theft, round(ASLT*100/TotalCrime,2) AS Assault, round(KDNP*100/TotalCrime,2) AS Kidnapping, round(HOM*100/TotalCrime,2) AS Homicide, round(ROB*100/TotalCrime,2) AS Robbery, round(BURG*100/TotalCrime,2) AS Burglary
+    `SELECT A.Year, Unemployment, round(THEFT/TotalCrime,2) AS Theft, round(ASLT/TotalCrime,2) AS Assault, round(KDNP/TotalCrime,2) AS Kidnapping, round(HOM/TotalCrime,2) AS Homicide, round(ROB/TotalCrime,2) AS Robbery, round(BURG/TotalCrime,2) AS Burglary
     FROM (select CrmYear as Year, THEFT,ASLT,KDNP,HOM,ROB,BURG,Unemployment from 
     (select year CrmYear, count(*) TOTAL from jgoldstein3.crime group by crime.year),
     (select year TheftYear, count(*) THEFT from jgoldstein3.crime where crime.crimetype like '%THEFT%' group by year),
@@ -54,7 +54,7 @@ async function query2() {
     (select year HomYear, count(*) HOM from jgoldstein3.crime where crime.crimetype like '%HOMICIDE%' group by year),
     (select year RobYear, count(*) ROB from jgoldstein3.crime where crime.crimetype like '%ROBBERY%' group by year),
     (select year BurgYear, count(*) BURG from jgoldstein3.crime where crime.crimetype like '%BURGLARY%' group by year),
-    (select year as unemYear,round(sum((unemployment/laborforce)*100)/12,2) as Unemployment from jgoldstein3.employment group by year)
+    (select year as unemYear,round(sum((unemployment/laborforce))/12,2) as Unemployment from jgoldstein3.employment group by year)
     where CrmYear = TheftYear
     and unemYear = TheftYear
     and AsltYear = TheftYear
