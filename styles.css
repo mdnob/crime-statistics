@@ -50,3 +50,12 @@ button:hover {
 #myChart {
     width: 100%; /* Make the canvas fill the chart container */
 }
+
+#loading-indicator {
+    display: none;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
