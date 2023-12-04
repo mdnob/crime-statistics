@@ -19,15 +19,26 @@ document.addEventListener("DOMContentLoaded", function () {
 // index.js
 let myChart; // Declare myChart as a global variable
 
-fetch('http://localhost:3000/query?type=4')
+document.addEventListener("DOMContentLoaded", function () {
+  // Get references to loading indicator and chart container
+  const loadingIndicator = document.getElementById('loading-indicator');
+
+  // Show loading indicator
+  loadingIndicator.style.display = 'block';
+
+  fetch('http://localhost:3000/query?type=4')
   .then(response => response.json())
   .then(data => {
+    loadingIndicator.style.display = 'none';
     console.log(data);
     // Call renderChart with data (initial render will happen when the "Update" button is pressed)
     renderChart(data);
   })
   .catch(error => {
+    loadingIndicator.style.display = 'none';
     console.error(error);
+  });
+
 });
 
 function renderChart(data) {
