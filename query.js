@@ -16,9 +16,9 @@ async function query1() {
     ) as "y3",ROUND(((1 / (STDDEV(age) * SQRT(2 * 3.14159))) * POWER(2.718281, -POWER((floor(AVG(age)) + floor(STDDEV(age) * 1)) - AVG(age), 2) / POWER((2 * STDDEV(age)), 2))) - 0.0005, 3
     ) as "y4",ROUND(((1 / (STDDEV(age) * SQRT(2 * 3.14159))) * POWER(2.718281, -POWER((floor(AVG(age)) + floor(STDDEV(age) * 1.25)) - AVG(age), 2) / POWER((2 * STDDEV(age)), 2))) - 0.0005, 3
     ) as "y5" FROM 
-    victim
+    jgoldstein3.victim
     JOIN 
-    crime ON victim.crimeid = crime.crimeid 
+    jgoldstein3.crime ON victim.crimeid = crime.crimeid 
     GROUP BY 
     year
     ORDER BY 
@@ -91,31 +91,31 @@ async function query3() {
     round(((y16-y15)/y15)*100,2) as "2016",round(((y17-y16)/y16)*100,2) as "2017", round(((y18-y17)/y17)*100,2) as "2018",
     round(((y19-y18)/y18)*100,2) as "2019",round(((y20-y19)/y19)*100,2) as "2020",round(((y21-y20)/y20)*100,2) as "2021",
     round(((y22-y21)/y21)*100,2) as "2022"from 
-    (select year,round(avg(cpi),2) as y10 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y10 from jgoldstein3.inflation  group by year 
     having year = '2010'),
-    (select year,round(avg(cpi),2) as y11 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y11 from jgoldstein3.inflation  group by year 
     having year = '2011'),
-    (select year,round(avg(cpi),2) as y12 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y12 from jgoldstein3.inflation  group by year 
     having year = '2012'),
-    (select year,round(avg(cpi),2) as y13 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y13 from jgoldstein3.inflation  group by year 
     having year = '2013'),
-    (select year,round(avg(cpi),2) as y14 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y14 from jgoldstein3.inflation  group by year 
     having year = '2014'),
-    (select year,round(avg(cpi),2) as y15 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y15 from jgoldstein3.inflation  group by year 
     having year = '2015'),
-    (select year,round(avg(cpi),2) as y16 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y16 from jgoldstein3.inflation  group by year 
     having year = '2016'),
-    (select year,round(avg(cpi),2) as y17 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y17 from jgoldstein3.inflation  group by year 
     having year = '2017'),
-    (select year,round(avg(cpi),2) as y18 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y18 from jgoldstein3.inflation  group by year 
     having year = '2018'),
-    (select year,round(avg(cpi),2) as y19 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y19 from jgoldstein3.inflation  group by year 
     having year = '2019'),
-    (select year,round(avg(cpi),2) as y20 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y20 from jgoldstein3.inflation  group by year 
     having year = '2020'),
-    (select year,round(avg(cpi),2) as y21 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y21 from jgoldstein3.inflation  group by year 
     having year = '2021'),
-    (select year,round(avg(cpi),2) as y22 from inflation  group by year 
+    (select year,round(avg(cpi),2) as y22 from jgoldstein3.inflation  group by year 
     having year = '2022')
     `;
     const result = await connection.execute(sql);
@@ -141,13 +141,13 @@ async function query3p2() {
     const sql = 
     `
     select CrmYear as Year, THEFT,ASLT,KDNP,HOM,ROB,BURG from 
-(select year CrmYear, count(*) TOTAL from crime group by crime.year),
-(select year TheftYear, count(*) THEFT from crime where crime.crimetype like '%THEFT%' group by year),
-(select year AsltYear, count(*) ASLT from crime where crime.crimetype like '%ASSAULT%' group by year),
-(select year KdnpYear, count(*) KDNP from crime where crime.crimetype like '%KIDNAPPING%' group by year),
-(select year HomYear, count(*) HOM from crime where crime.crimetype like '%HOMICIDE%' group by year),
-(select year RobYear, count(*) ROB from crime where crime.crimetype like '%ROBBERY%' group by year),
-(select year BurgYear, count(*) BURG from crime where crime.crimetype like '%BURGLARY%' group by year)
+(select year CrmYear, count(*) TOTAL from jgoldstein3.crime group by crime.year),
+(select year TheftYear, count(*) THEFT from jgoldstein3.crime where crime.crimetype like '%THEFT%' group by year),
+(select year AsltYear, count(*) ASLT from jgoldstein3.crime where crime.crimetype like '%ASSAULT%' group by year),
+(select year KdnpYear, count(*) KDNP from jgoldstein3.crime where crime.crimetype like '%KIDNAPPING%' group by year),
+(select year HomYear, count(*) HOM from jgoldstein3.crime where crime.crimetype like '%HOMICIDE%' group by year),
+(select year RobYear, count(*) ROB from jgoldstein3.crime where crime.crimetype like '%ROBBERY%' group by year),
+(select year BurgYear, count(*) BURG from jgoldstein3.crime where crime.crimetype like '%BURGLARY%' group by year)
 where CrmYear = TheftYear
 and AsltYear = TheftYear
 and KdnpYear = AsltYear
