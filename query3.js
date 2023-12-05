@@ -27,17 +27,29 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error(error);
         });
 
-    // Fetch data for the second chart
-    fetch('http://localhost:3000/query?type=3.1')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Call renderChart with data to render the second chart immediately
-            renderChart(data, 'myChart2');
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Get references to loading indicator and chart container
+  const loadingIndicator = document.getElementById('loading-indicator');
+
+  // Show loading indicator
+  loadingIndicator.style.display = 'block';
+
+  fetch('http://localhost:3000/query?type=3.1')
+  .then(response => response.json())
+  .then(data => {
+    loadingIndicator.style.display = 'none';
+    console.log(data);
+    // Call renderChart with data (initial render will happen when the "Update" button is pressed)
+    renderChart(data,'myChart2');
+  })
+  .catch(error => {
+    loadingIndicator.style.display = 'none';
+    console.error(error);
+  });
+
 });
 
 // index.js
