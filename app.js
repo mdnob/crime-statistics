@@ -31,9 +31,25 @@ app.get('/query', async (req, res) => {
       {
         result = await query.query4();
       }
-      else if (type === '5') 
+      else if (type === '5.1') 
       {
-        result = await query.query5();
+        result = await query.query5p1();
+      }
+      else if (type === '5.2') 
+      {
+        result = await query.query5p2();
+      }
+      else if (type === '5.3') 
+      {
+        result = await query.query5p3();
+      }
+      else if (type === '5.4') 
+      {
+        result = await query.query5p4();
+      }
+      else if (type === '5.5') 
+      {
+        result = await query.query5p5();
       }
       res.json(result.rows);
     } catch (error) {
