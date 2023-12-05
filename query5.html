@@ -4,12 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #chart-container {
+            margin-bottom: 50px; 
+        }
+
+        canvas {
+            display: block; 
+            margin-bottom: 40px; 
+        }
+
+        footer {
+            margin-top: 50px; 
+            z-index: 2;
+        }
+
+    
+    </style>
     <title>Crime Statistics</title>
+    <link rel="icon" href="data:,">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
         <h1>Holiday Crime</h1>
+        <p>Select year to compare top 10 crime hotspot locations on holidays. Hit update button to reflect your changes.</p>
+        <script src="query5.js"></script>
     </header>
+
+    <div id="loading-indicator">Loading...</div>
+    <div id="chart-container">
+        <div id="checkbox"></div>
+        <button id="updateButton">Update</button>
+        <canvas id="myChart" width="200" height="100"></canvas>
+        <canvas id="myChart2" width="200" height="100"></canvas>
+        <canvas id="myChart3" width="200" height="100"></canvas>
+        <canvas id="myChart4" width="200" height="100"></canvas>
+        <canvas id='myChart5' width="200" height="100"></canvas>
+    </div>
 
     <footer>
         <button onclick="goToHomepage()">Back To Homepage</button>
