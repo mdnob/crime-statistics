@@ -51,6 +51,10 @@ app.get('/query', async (req, res) => {
       {
         result = await query.query5p5();
       }
+      else if (type === 'map')
+      {
+        result = await query.queryMap(req.query.year, req.query.month, req.query.day);
+      }
       res.json(result.rows);
     } catch (error) {
       console.error(error);
