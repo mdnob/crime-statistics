@@ -76,9 +76,12 @@
 
     <section>
         <left-section>
-            <!-- Placeholder for an image -->
+            <div id="query-section">
+                <button id="executeQueryButton">Tuple Count</button>
+                <div id="queryResult"></div>
+            </div>
             <img src="graphImage.jpeg" alt="Graph image, types of graph you might expect to see in this application" 
-            style="max-width: 100%; height: auto;">
+                style="max-width: 100%; height: auto;">
         </left-section>
 
         <right-section>
@@ -124,6 +127,19 @@
         function goToQMap() {
             window.location.href = "map.html";
         }
+
+        // Add the new script for fetching and displaying the "tuple" query
+        document.getElementById("executeQueryButton").addEventListener("click", function() {
+            fetch('http://localhost:3000/query?type=tuple')
+                .then(response => response.json())
+                .then(data => {
+                    const resultBox = document.getElementById("queryResult");
+                    resultBox.textContent = "Tuple Count: " + JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
     </script>
 
 </body>
