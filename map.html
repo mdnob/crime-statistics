@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Crime Statistics</title>
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <header>
+        <h1>Crime Map</h1>
+        <p>Select date to choose specific crime data, hit the update button to reflect your changes.</p>
+    </header>
+    <div id="loading-indicator">Loading...</div>
+    <div id="chart-container">
+        <div>
+            <label for="crimeDate">Select Date:</label>
+            <input type="date" id="crimeDate" name="crimeDate">
+        </div>
+        <button id="updateButton">Update</button>
+    </div>
+
+    <div id="map">
+        <script src="map.js"></script>
+    </div>
+    
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAmweO9Tk6tBT9DdNeo5-8A5P-i-yaEWI&callback=initMap"></script>
+
+    <footer>
+        <button onclick="goToHomepage()">Back To Homepage</button>
+    </footer>
+
+    <script>
+        function goToHomepage() {
+            window.location.href = "homepage.html";
+        }
+    </script>
+</body>
+</html>
