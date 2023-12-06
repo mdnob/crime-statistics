@@ -54,6 +54,8 @@ app.get('/query', async (req, res) => {
       else if (type === 'map')
       {
         result = await query.queryMap(req.query.year, req.query.month, req.query.day);
+      } else if (type === 'tuple') {
+        result = await query.tupleQuery();
       }
       res.json(result.rows);
     } catch (error) {
