@@ -543,6 +543,34 @@ async function query5p5() {
   }
 }
 
+async function queryMap(year, month, day) {
+  let connection;
+  try {
+    connection = await oracledb.getConnection(dbConfig);
+    const sql = 
+      `SELECT A.Latitude, A.Longitude
+      FROM (JGOLDSTEIN3.Premise P JOIN JGOLDSTEIN3.Crime C ON P.CrimeID = C.CrimeID)
+      JOIN NOBLEZAM.Address A ON P.Location = A.Address AND P.Lon = A.Longitude
+      WHERE Year = :year AND Month = :month AND Day = :day
+      ORDER BY DBMS_RANDOM.RANDOM
+      FETCH FIRST 100 ROWS ONLY`;
+
+    const result = await connection.execute(sql, { year, month, day });
+    return result;
+  } catch (error) {
+    console.error('Error in query Map:', error);
+    throw error;
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (error) {
+        console.error('Error closing database connection:', error);
+      }
+    }
+  }
+}
+
 module.exports = {
     query1,
     query2,
@@ -554,4 +582,5 @@ module.exports = {
     query5p3,
     query5p4,
     query5p5,
+    queryMap
 };
