@@ -571,6 +571,29 @@ async function queryMap(year, month, day) {
   }
 }
 
+async function tupleQuery(year, month, day) {
+  let connection;
+  try {
+    connection = await oracledb.getConnection(dbConfig);
+    const sql = 
+      `select count(*) from jgoldstein3.crime`;
+
+    const result = await connection.execute(`SELECT COUNT(*) FROM crime`);
+    return result;
+  } catch (error) {
+    console.error('Error in tuple query:', error);
+    throw error;
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (error) {
+        console.error('Error closing database connection:', error);
+      }
+    }
+  }
+}
+
 module.exports = {
     query1,
     query2,
@@ -582,5 +605,6 @@ module.exports = {
     query5p3,
     query5p4,
     query5p5,
-    queryMap
+    queryMap,
+    tupleQuery
 };
