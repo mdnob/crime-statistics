@@ -39,4 +39,5 @@ Crime data is publicly available from the LA City website.
 
 ## Disclaimer
 This project is only accessible to individuals who have access to the university's database. 
-> [!IMPORTANT] If the database tables are deleted, the website will lose access to its data, requiring a reupload of the dataset.
+[!IMPORTANT]
+> If the database tables are deleted, the website will lose access to its data, requiring a reupload of the dataset.
