@@ -4,12 +4,12 @@ A web-based crime data analysis tool for Los Angeles, leveraging complex trend q
 
 ## Quick Look
 <div style="display: flex; gap: 0px; justify-content: center;">
-    <img src="./images/home.png" alt="Home" style="width: 50%;" />
+    <img src="./images/home.png" alt="Home" style="width: 49%;" />
 </div>
 
 <div style="display: flex; gap: 0px;">
-    <img src="./images/graph.png" alt="Graph" style="width: 50%;" />
-    <img src="./images/map.png" alt="Map" style="width: 50%;" />
+    <img src="./images/graph.png" alt="Graph" style="width: 49%;" />
+    <img src="./images/map.png" alt="Map" style="width: 49%;" />
 </div>
 
 ## Datasets
@@ -39,4 +39,4 @@ Crime data is publicly available from the LA City website.
 
 ## Disclaimer
 This project is only accessible to individuals who have access to the university's database. 
-> [!Note] If the database tables are deleted, the website will lose access to its data, requiring a reupload of the dataset.
+> [!IMPORTANT] If the database tables are deleted, the website will lose access to its data, requiring a reupload of the dataset.
