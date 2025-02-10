@@ -38,6 +38,4 @@ Crime data is publicly available from the LA City website.
 5. Run `homepage.html` inside `/frontend/pages/` to use the website.
 
 ## Disclaimer
-This project is only accessible to individuals who have access to the university's database. 
-[!IMPORTANT]
-> If the database tables are deleted, the website will lose access to its data, requiring a reupload of the dataset.
+This project is only accessible to those with access to the university's database. If database tables are deleted, data will no longer be viewable and must be reuploaded.
